@@ -29,10 +29,6 @@ public final class Layout {
 	 */
 	public final File homeDir;
 
-	/**
-	 * Directory for keeping database files in
-	 */
-	public final File databaseDir;
 
 	/**
 	 * Top level directory for all user media files
@@ -47,13 +43,7 @@ public final class Layout {
 	/**
 	 * Directory for keeping shared files
 	 */
-	public final File shareDir;
 
-	/**
-	 * Toplevel directory for keeping external scripts and binaries in. May have
-	 * subdirectories.
-	 */
-	public final File binDir;
 
 	/**
 	 * Construct a layout with a given top level directory
@@ -63,10 +53,7 @@ public final class Layout {
 	 */
 	public Layout(File homeDir) {
 		this.homeDir = homeDir;
-		binDir = new File(homeDir, "bin");
-		shareDir = new File(homeDir, "share");
 		contentDir = new File(homeDir, "content");
-		databaseDir = new File(contentDir, "database");
 		appsDir = new File(contentDir, "apps");
 	}
 
@@ -111,11 +98,11 @@ public final class Layout {
 	 */
 	public Layout mkdirs() {
 		homeDir.mkdirs();
-		binDir.mkdir();
-		shareDir.mkdir();
+//		binDir.mkdir();
+//		shareDir.mkdir();
 
 		contentDir.mkdir();
-		databaseDir.mkdir();
+//		databaseDir.mkdir();
 		appsDir.mkdir();
 		return this;
 	}

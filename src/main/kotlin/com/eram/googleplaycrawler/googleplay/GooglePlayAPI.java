@@ -1,18 +1,21 @@
 package com.eram.googleplaycrawler.googleplay;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigInteger;
-import java.security.Key;
-import java.security.KeyFactory;
-import java.security.MessageDigest;
-import java.security.PublicKey;
-import java.security.spec.RSAPublicKeySpec;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.crypto.Cipher;
+import com.eram.googleplaycrawler.CryptProperties;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidAppDeliveryData;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidCheckinRequest;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidCheckinResponse;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.BulkDetailsRequest;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.BulkDetailsRequest.Builder;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.BulkDetailsResponse;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.BuyResponse;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.DetailsResponse;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.ListResponse;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.ResponseWrapper;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.ReviewResponse;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.SearchResponse;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.UploadDeviceConfigRequest;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.UploadDeviceConfigResponse;
+import com.eram.googleplaycrawler.googleplay.misc.Base64;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -30,24 +33,20 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
 import org.apache.http.impl.conn.SchemeRegistryFactory;
 import org.apache.http.message.BasicNameValuePair;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.eram.googleplaycrawler.CryptProperties;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidAppDeliveryData;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidCheckinRequest;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidCheckinResponse;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.BulkDetailsRequest;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.BulkDetailsRequest.Builder;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.BulkDetailsResponse;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.BuyResponse;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.DetailsResponse;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.ListResponse;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.ResponseWrapper;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.ReviewResponse;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.SearchResponse;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.UploadDeviceConfigRequest;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.UploadDeviceConfigResponse;
-import com.eram.googleplaycrawler.googleplay.misc.Base64;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigInteger;
+import java.security.Key;
+import java.security.KeyFactory;
+import java.security.MessageDigest;
+import java.security.PublicKey;
+import java.security.spec.RSAPublicKeySpec;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.crypto.Cipher;
 
 /**
  * This class provides

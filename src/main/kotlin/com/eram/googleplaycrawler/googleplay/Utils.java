@@ -1,5 +1,15 @@
 package com.eram.googleplaycrawler.googleplay;
 
+import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidBuildProto;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidCheckinProto;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidCheckinRequest;
+import com.eram.googleplaycrawler.googleplay.GooglePlay.DeviceConfigurationProto;
+import com.eram.googleplaycrawler.googleplay.misc.Base64;
+import com.eram.googleplaycrawler.googleplay.misc.DummyX509TrustManager;
+
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,16 +29,6 @@ import java.util.StringTokenizer;
 import javax.crypto.Cipher;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
-
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.ssl.SSLSocketFactory;
-
-import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidBuildProto;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidCheckinProto;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.AndroidCheckinRequest;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.DeviceConfigurationProto;
-import com.eram.googleplaycrawler.googleplay.misc.Base64;
-import com.eram.googleplaycrawler.googleplay.misc.DummyX509TrustManager;
 
 /**
  * 

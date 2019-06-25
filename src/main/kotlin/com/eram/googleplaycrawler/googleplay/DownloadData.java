@@ -1,5 +1,8 @@
 package com.eram.googleplaycrawler.googleplay;
 
+import com.eram.googleplaycrawler.googleplay.GooglePlay.*;
+import com.eram.googleplaycrawler.googleplay.misc.Base64;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidAlgorithmParameterException;
@@ -13,8 +16,6 @@ import javax.crypto.CipherInputStream;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import com.eram.googleplaycrawler.googleplay.GooglePlay.*;
-import com.eram.googleplaycrawler.googleplay.misc.Base64;
 
 
 public class DownloadData {

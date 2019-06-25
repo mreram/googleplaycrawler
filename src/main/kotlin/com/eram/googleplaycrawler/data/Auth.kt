@@ -7,7 +7,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "Auth")
-class Auth(id: Int? = null, token: String? = null, userAgent: String? = null, androidId: String? = null) {
+class Auth(id: Int? = null, token: String? = null, userAgent: String? = null, androidId: String? = null, email: String? = null) {
 
     @Column
     @Id
@@ -22,6 +22,12 @@ class Auth(id: Int? = null, token: String? = null, userAgent: String? = null, an
     @Column
     var userAgent: String? = userAgent
 
+    @Column
+    var email: String? = email
+
+    override fun toString(): String {
+        return "Auth(id=$id, token=$token, androidId=$androidId, userAgent=$userAgent, email=$email)"
+    }
 
 
 }

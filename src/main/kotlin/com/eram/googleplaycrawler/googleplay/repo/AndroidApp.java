@@ -1,8 +1,8 @@
 package com.eram.googleplaycrawler.googleplay.repo;
 
 import com.eram.googleplaycrawler.googleplay.DownloadData;
-import com.eram.googleplaycrawler.googleplay.GooglePlayAPI;
 import com.eram.googleplaycrawler.googleplay.GooglePlay.DetailsResponse;
+import com.eram.googleplaycrawler.googleplay.GooglePlayAPI;
 
 import net.dongliu.apk.parser.ApkParser;
 import net.dongliu.apk.parser.bean.ApkMeta;
@@ -210,7 +210,7 @@ public class AndroidApp {
         return ret;
     }
 
-    public static void downloadApp(GooglePlayAPI api, String doc, int ot) {
+    public static File downloadApp(GooglePlayAPI api, String doc, int ot) {
 
         int vcode = -1;
         int len;
@@ -276,10 +276,14 @@ public class AndroidApp {
             }
 
 
+            return apkFile;
+
+
         } catch (Exception e) {
             apkFile.delete();
             mainFile.delete();
             patchFile.delete();
+            return null;
         }
     }
 
