@@ -1,9 +1,6 @@
 package com.eram.googleplaycrawler
 
-import com.eram.googleplaycrawler.data.PATH_DOWNLOAD
-import com.eram.googleplaycrawler.data.PATH_HOME
-import com.eram.googleplaycrawler.data.PATH_ROOT
-import com.eram.googleplaycrawler.data.PATH_SEARCH
+import com.eram.googleplaycrawler.data.*
 import com.eram.googleplaycrawler.googleplay.GooglePlayAPI
 import com.eram.googleplaycrawler.googleplay.repo.AndroidApp.downloadApp
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,6 +15,8 @@ class WebServiceController {
     @Autowired
     lateinit var cryptProperties: CryptProperties
 
+    @Autowired
+    lateinit var authRepository: AuthRepository
 
     @RequestMapping(path = [PATH_DOWNLOAD], method = [RequestMethod.GET])
     fun downloadEndPoint(packageName: String): String {
@@ -32,8 +31,16 @@ class WebServiceController {
         return "debug: ${playAPI.searchApp(query)}"
     }
 
+
+    @RequestMapping(path = [PATH_HOME, PATH_ROOT], method = [RequestMethod.GET])
+    fun homeEndPoint(input: String?): String {
+        return "hi, this is home page. ${cryptProperties}"
+    }
+
     fun createConnection(): GooglePlayAPI {
-        val googlePlayAPI = GooglePlayAPI(cryptProperties,"mreram2@gmail.com", "mre9037103")
+
+
+        val googlePlayAPI = GooglePlayAPI(cryptProperties, "mreram2@gmail.com", "mre9037103")
         val l = Locale.getDefault()
         var s = l.language
         if (l.country != null) {
@@ -41,19 +48,27 @@ class WebServiceController {
         }
         googlePlayAPI.localization = s
         googlePlayAPI.login()
-        try {
-            googlePlayAPI.checkin()
-        } catch (ex: IOException) {
-            ex.printStackTrace()
+
+
+        if (authRepository.count() == 0L) {
+            System.out.println("createConnection: new login")
+            try {
+                googlePlayAPI.checkin()
+            } catch (ex: IOException) {
+                ex.printStackTrace()
+            }
+            googlePlayAPI.uploadDeviceConfig()
+            val auth = Auth(1, googlePlayAPI.token, googlePlayAPI.useragent, googlePlayAPI.androidID)
+            authRepository.save(auth)
+        } else {
+            val auth = authRepository.findAll().first()
+            googlePlayAPI.androidID = auth.androidId
+            googlePlayAPI.token = auth.token
+            googlePlayAPI.useragent = auth.userAgent
+            System.out.println("createConnection: exists in database, auth:$auth")
         }
-        googlePlayAPI.uploadDeviceConfig()
+
         return googlePlayAPI
     }
 
-
-
-    @RequestMapping(path = [PATH_HOME, PATH_ROOT], method = [RequestMethod.GET])
-    fun homeEndPoint(input: String?): String {
-        return "hi, this is home page. ${cryptProperties}"
-    }
 }

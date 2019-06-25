@@ -120,6 +120,8 @@ public class GooglePlayAPI {
      * before any other operation.
      */
     public GooglePlayAPI() {
+        setClient(new DefaultHttpClient(getConnectionManager()));
+        setUseragent("Android-Finsky/13.1.32-all (versionCode=81313200,sdk=24,device=dream2lte,hardware=dream2lte,product=dream2ltexx,build=NRD90M:user)");
     }
 
     /**
